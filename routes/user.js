@@ -6,7 +6,7 @@ const Router = express.Router;
 
 const userRouter = Router();
 
-userRouter.post('/signup', ()=>{
+userRouter.post('/signup', (req,res)=>{
 
 })
 

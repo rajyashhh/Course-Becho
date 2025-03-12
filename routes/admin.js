@@ -6,18 +6,27 @@ adminRouter.post('/create',(req,res)=>{
 
     })
 })
-userRouter.post('/signup', ()=>{
-    res.send({
-        
-    })
-})
-
-userRouter.post('/login', (req,res)=>{
+adminRouter.post('/signup', (req,res)=>{
     res.send({
 
     })
 })
 
+adminRouter.post('/login', (req,res)=>{
+    res.send({
+
+    })
+})
+adminRouter.put('/update', (req,res)=>{
+    res.send({
+
+    })
+})
+adminRouter.get('/course/bulk', (req,res)=>{
+    res.send({
+
+    })
+})
 module.exports = {
     adminRouter : adminRouter
 }
