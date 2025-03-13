@@ -107,6 +107,16 @@ adminRouter.post('/login', async (req,res)=>{
 adminRouter.put('/update/:id', authadmin, async (req,res)=>{
     const courseID = req.params.id;
     const {title, description, image_url, price} = req.body;
+    const course = await courseModel.findOne({
+        _id : courseID,
+        creator_id : req.userId
+    })
+    if(!course){
+        res.json({
+            message : "This user has no access to this course!"
+        })
+        return;
+    }
     const updatedCourse = await courseModel.findByIdAndUpdate(courseID,{title : title, description : description, price : price, image_url : image_url},{new : true});
     if (!updatedCourse) {
         return res.status(404).json({ message: "Course not found" });
