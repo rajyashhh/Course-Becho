@@ -11,9 +11,7 @@ app.use('/user', userRouter);
 app.use('/course', courseRouter);
 app.use('/admin', adminRouter);
 
-function auth(req,res){
 
-}
 
 
 
