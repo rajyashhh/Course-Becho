@@ -105,7 +105,6 @@ adminRouter.post('/login', async (req,res)=>{
     
 })
 adminRouter.put('/update/:id', authadmin, async (req,res)=>{
-    console.log("controller reacher here")
     const courseID = req.params.id;
     const {title, description, image_url, price} = req.body;
     const updatedCourse = await courseModel.findByIdAndUpdate(courseID,{title : title, description : description, price : price, image_url : image_url},{new : true});
