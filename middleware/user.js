@@ -1,5 +1,5 @@
 const jwt = require ("jsonwebtoken");
-const jwt_pass = process.env.JWT_SECRET_KEY_ADMIN;
+const jwt_pass = process.env.JWT_SECRET_KEY_USER;
 function authUser(req, res, next){
     const token = req.headers.token;
     const verified = jwt.verify(token, jwt_pass);

@@ -8,7 +8,7 @@ courseRouter.get('/preview', (req,res)=>{
 })
 courseRouter.get('/purchase', (req,res)=>{
     res.send({
-
+        
     })
 })
 
