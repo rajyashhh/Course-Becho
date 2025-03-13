@@ -3,8 +3,8 @@ const adminRouter = Router();
 const bcrypt = require("bcrypt");
 const {adminModel} = require("../db");
 const {z} = require("zod");
-const { ObjectId } = require("mongodb");
-const e = require("express");
+const jwt = require("jsonwebtoken");
+const jwt_pass = process.env.JWT_SECRET_KEY_ADMIN;
 
 
 adminRouter.post('/create',(req,res)=>{
@@ -66,17 +66,39 @@ adminRouter.post('/signup', async (req,res)=>{
     }
 })
 
-adminRouter.post('login', (req,res)=>{
+adminRouter.post('/login', async (req,res)=>{
+    const email = req.body.email;
+    
+    const admin = await adminModel.findOne({email : email});
+    if(!admin){
+        
+        res.json({
+            message : "No admins found with this email id!"
+        })
+        return;
+    }
+    const password = req.body.password;
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+        if(passwordMatch){
+            const token = await jwt.sign({id : admin._id},jwt_pass);
+            res.json({
+                message : "You are successfully signed in!",
+                token : token
+            })
+        }else{
+            res.json({
+                message : "Password does not match!"
+            })
+            
+        }
+    
+})
+adminRouter.put('/update', (req,res)=>{
     res.send({
 
     })
 })
-adminRouter.put('update', (req,res)=>{
-    res.send({
-
-    })
-})
-adminRouter.get('coursebulk', (req,res)=>{
+adminRouter.get('/coursebulk', (req,res)=>{
     res.send({
 
     })
