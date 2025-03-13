@@ -2,20 +2,19 @@ const {Router}= require("express");
 const adminRouter = Router();
 const bcrypt = require("bcrypt");
 const {adminModel, courseModel} = require("../db");
-const {z} = require("zod");
+const {z, any} = require("zod");
 const jwt = require("jsonwebtoken");
 const jwt_pass = process.env.JWT_SECRET_KEY_ADMIN;
 const {authadmin} = require("../middleware/admin");
-
 adminRouter.post('/create', authadmin, async(req,res)=>{
     const adminId = req.userId;
-    const {title, description, imageUrl, price} = req.body;
+    const {title, description, image_url, price} = req.body;
 
     const course = await courseModel.create({
         title : title,
         description : description,
         price : price,
-        image_url : imageUrl,
+        image_url : image_url,
         creator_id : adminId
     })
     res.json({
@@ -105,14 +104,24 @@ adminRouter.post('/login', async (req,res)=>{
         }
     
 })
-adminRouter.put('/update', (req,res)=>{
-    res.send({
+adminRouter.put('/update/:id', authadmin, async (req,res)=>{
+    console.log("controller reacher here")
+    const courseID = req.params.id;
+    const {title, description, image_url, price} = req.body;
+    const updatedCourse = await courseModel.findByIdAndUpdate(courseID,{title : title, description : description, price : price, image_url : image_url},{new : true});
+    if (!updatedCourse) {
+        return res.status(404).json({ message: "Course not found" });
+    }
 
+    res.send({
+        message : "Course updated successfully!",
+        updatedCourse
     })
 })
-adminRouter.get('/coursebulk', (req,res)=>{
+adminRouter.get('/course', authadmin, async (req,res)=>{
+    const course = await courseModel.find({creator_id : req.userId});
     res.send({
-
+        course
     })
 })
 module.exports = {
