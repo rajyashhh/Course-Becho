@@ -2,7 +2,7 @@ const express = require ("express");
 const Router = express.Router;
 
 const bcrypt = require("bcrypt");
-const {userModel, purchaseModel} = require("../db");
+const {userModel, purchaseModel, courseModel} = require("../db");
 
 const {z} = require("zod");
 const jwt = require("jsonwebtoken");
@@ -101,8 +101,15 @@ userRouter.get('/purchases', authUser, async(req,res)=>{
         })
         return;
     }
+    let purchasedCoursesId = [];
+    for (let i =0 ; i<purchasedCourses.length; i++){
+        purchasedCoursesId.push(purchasedCourses[i].courseId);
+    }
+    const courseData = await courseModel.find({
+        _id : { $in : purchasedCoursesId}
+    })
     res.send({
-        purchasedCourses
+        courseData
     })
 })
 
