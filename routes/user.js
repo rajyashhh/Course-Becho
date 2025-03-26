@@ -9,8 +9,7 @@ const jwt = require("jsonwebtoken");
 const { authUser } = require("../middleware/user");
 const jwt_pass = process.env.JWT_SECRET_KEY_USER;
 
-const {Router} = require("express"); Another method of writing last two lines
-
+const {Router} = require("express");
 const userRouter = Router();
 
 userRouter.post('/signup', async (req,res)=>{
