@@ -1,5 +1,5 @@
-const express = require ("express");
-const Router = express.Router;
+// const express = require ("express");
+// const Router = express.Router;
 
 const bcrypt = require("bcrypt");
 const {userModel, purchaseModel, courseModel} = require("../db");
@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const { authUser } = require("../middleware/user");
 const jwt_pass = process.env.JWT_SECRET_KEY_USER;
 
-//const {Router} = require("express"); Another method of writing last two lines
+const {Router} = require("express"); Another method of writing last two lines
 
 const userRouter = Router();
 
