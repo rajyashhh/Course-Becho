@@ -9,7 +9,7 @@ function authUser(req, res, next){
     }
     else{
         res.json({
-            message: "Admin is not signed in"
+            message: "User is not signed in"
         })
     }
 }
