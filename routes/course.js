@@ -27,3 +27,5 @@ courseRouter.get('/purchase', authUser, async(req,res)=>{
 module.exports = {
     courseRouter : courseRouter
 }
+
+//minor change
