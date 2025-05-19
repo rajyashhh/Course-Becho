@@ -91,6 +91,8 @@ userRouter.post('/login', async(req,res)=>{
             
         }
 })
+
+// This router is about the purchases made on the platform
 userRouter.get('/purchases', authUser, async(req,res)=>{
     const userId = req.userId;
     const purchasedCourses = await purchaseModel.find({userId});
